@@ -1,0 +1,109 @@
+.restaurant-list {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-form div {
+    flex: 1 1 200px;
+  }
+  
+  .filter-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .filter-form input,
+  .filter-form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .filter-form button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .filter-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .search-form {
+    margin-bottom: 20px;
+  }
+  
+  .search-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .search-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    margin: 10px 0;
+  }
+  
+  li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  li a:hover {
+    text-decoration: underline;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+  }
+  
+  .pagination button:hover {
+    background-color: #e2e6ea;
+  }
+  
+  .pagination span {
+    font-size: 16px;
+  }
+  

@@ -1,0 +1,74 @@
+.restaurant-detail-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .restaurant-name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .featured-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .restaurant-info {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .menu-images-section {
+    margin-top: 30px;
+  }
+  
+  .fetch-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .fetch-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .fetch-button:hover:not(:disabled) {
+    background-color: #0056b3;
+  }
+  
+  .menu-images-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .menu-images-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .menu-image {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  

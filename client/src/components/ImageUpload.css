@@ -1,0 +1,54 @@
+.image-upload {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .image-upload h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .image-upload input {
+    margin-bottom: 20px;
+  }
+  
+  .image-upload button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .image-upload button:hover {
+    background-color: #45a049;
+  }
+  
+  .restaurant-list {
+    margin-top: 30px;
+  }
+  
+  .restaurant-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .restaurant-list li {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  .restaurant-list a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .restaurant-list a:hover {
+    text-decoration: underline;
+  }
+  
+  .restaurant-details {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  

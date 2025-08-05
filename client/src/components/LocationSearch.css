@@ -1,0 +1,43 @@
+.location-search {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .location-search h2 {
+    margin-bottom: 10px;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+  }
+  
+  .input-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .input-group input {
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
