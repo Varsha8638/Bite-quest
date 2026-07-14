@@ -2,7 +2,7 @@
 
 Set sail and discover restaurants — search by name, filter by country/cuisine/spend, find what's nearby by coordinates, or just snap a photo of a craving and let Gemini figure out what you're actually looking for.
 
-**Live demo:** _add your deployed URL here_
+**Live demo:**[ _Live_](https://bite-quest.vercel.app/)
 **Repo:** https://github.com/Varsha8638/Bite-quest
 
 ## Tech Stack
