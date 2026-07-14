@@ -6,18 +6,19 @@ const GoogleGenerativeAI = require('@google/generative-ai').GoogleGenerativeAI;
 
 const fs = require('fs');
 const path = require('path');
-// const { GoogleAIFileManager, GoogleGenerativeAI } = require('@google/generative-ai/server');
+const crypto = require('crypto');
+require('dotenv').config();
 
-const apiKey = '';
+const apiKey = process.env.GEMINI_API_KEY;
 const fileManager = new GoogleAIFileManager(apiKey);
 const genAI = new GoogleGenerativeAI(apiKey);
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+const model = genAI.getGenerativeModel({ model: 'gemini-flash-latest' });
 
 async function recognizeFood(imageBuffer) {
-  try {
-    // Define a path for the temporary file
-    const tempFilePath = path.join(__dirname, 'temp_image.jpg');
+  // Unique filename per request so concurrent uploads don't overwrite each other's temp file.
+  const tempFilePath = path.join(__dirname, `temp-${crypto.randomUUID()}.jpg`);
 
+  try {
     // Write the buffer to a temporary file
     fs.writeFileSync(tempFilePath, imageBuffer);
 
@@ -40,14 +41,16 @@ async function recognizeFood(imageBuffer) {
       },
     ]);
 
-    // Clean up the temporary file
-    fs.unlinkSync(tempFilePath);
-
     console.log('API Response:', result); // Log the response
     return result.response.text();
   } catch (error) {
     console.error('Detailed Error:', error.response ? error.response.data : error.message);
     throw new Error('Failed to recognize food');
+  } finally {
+    // Clean up the temporary file even if something above threw
+    if (fs.existsSync(tempFilePath)) {
+      fs.unlinkSync(tempFilePath);
+    }
   }
 }
 

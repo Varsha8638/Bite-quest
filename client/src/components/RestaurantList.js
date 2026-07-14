@@ -1,171 +1,6 @@
-
-
-
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import './RestaurantList.css';
-
-// function RestaurantList() {
-//   const [restaurants, setRestaurants] = useState([]); // Initialize as an empty array
-//   const [filters, setFilters] = useState({
-//     country: '',
-//     minSpend: '',
-//     maxSpend: '',
-//     cuisines: '',
-//   });
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [totalPages, setTotalPages] = useState(1);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState(null); // Add state for error handling
-
-//   useEffect(() => {
-//     fetchRestaurants();
-//   }, [currentPage, filters]); // Fetch data on page or filter change
-
-//   const fetchRestaurants = async () => {
-//     setLoading(true);
-//     setError(null); // Reset error on new fetch
-//     try {
-//       const response = await axios.get('http://localhost:5000/restaurants', {
-//         params: { ...filters, page: currentPage },
-//       });
-
-//       // Check if response.data.restaurants is defined and an array
-//       if (response.data && Array.isArray(response.data.restaurants)) {
-//         setRestaurants(response.data.restaurants);
-//         setTotalPages(response.data.totalPages);
-//       } else {
-//         console.error('Unexpected response structure:', response.data);
-//         setRestaurants([]); // Fallback to empty array
-//         setError('Unexpected response structure.'); // Set error message
-//       }
-//     } catch (error) {
-//       console.error('Error fetching restaurants:', error);
-//       setRestaurants([]); // Fallback to empty array
-//       setError('Failed to fetch restaurants.'); // Set error message
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   const handleFilterChange = (event) => {
-//     setFilters({
-//       ...filters,
-//       [event.target.name]: event.target.value,
-//     });
-//   };
-
-//   const handleFilterSubmit = (event) => {
-//     event.preventDefault();
-//     setCurrentPage(1); // Reset to page 1 when applying filters
-//     fetchRestaurants();
-//   };
-
-//   const handlePageChange = (newPage) => {
-//     if (newPage >= 1 && newPage <= totalPages) {
-//       setCurrentPage(newPage);
-//     }
-//   };
-//   const countryOptions = [
-//     'India', 'Australia', 'Brazil', 'Canada', 'Indonesia', 'New Zealand', 
-//     'Philippines', 'Qatar', 'Singapore', 'South Africa', 'Sri Lanka', 
-//     'Turkey', 'UAE', 'United Kingdom', 'United States'
-//   ];
-
-//   return (
-//     <div className="restaurant-list">
-//     <h2>Restaurant List</h2>
-
-//     <form onSubmit={handleFilterSubmit} className="filter-form">
-//       <div>
-//         <label>Country:</label>
-//         <select
-//           name="country"
-//           value={filters.country}
-//           onChange={handleFilterChange}
-//         >
-//           <option value="">Select a country</option>
-//           {countryOptions.map((country) => (
-//             <option key={country} value={country}>
-//               {country}
-//             </option>
-//           ))}
-//         </select>
-//       </div>
-      
-//         <div>
-//           <label>Min Spend:</label>
-//           <input
-//             type="number"
-//             name="minSpend"
-//             value={filters.minSpend}
-//             onChange={handleFilterChange}
-//           />
-//         </div>
-//         <div>
-//           <label>Max Spend:</label>
-//           <input
-//             type="number"
-//             name="maxSpend"
-//             value={filters.maxSpend}
-//             onChange={handleFilterChange}
-//           />
-//         </div>
-//         <div>
-//           <label>Cuisines:</label>
-//           <input
-//             type="text"
-//             name="cuisines"
-//             value={filters.cuisines}
-//             onChange={handleFilterChange}
-//             placeholder="e.g. Italian, Chinese"
-//           />
-//         </div>
-//         <button type="submit">Filter</button>
-//       </form>
-
-//       {loading && <p>Loading...</p>}
-//       {error && <p className="error">{error}</p>} {/* Display error message */}
-
-//       <ul>
-//         {restaurants.length > 0 ? (
-//           restaurants.map((restaurant) => (
-//             <li key={restaurant.id}>
-//               <a href={`/restaurants/${restaurant.id}`}>{restaurant.name}</a>
-//             </li>
-//           ))
-//         ) : (
-//           <p>No restaurants found.</p>
-//         )}
-//       </ul>
-
-//       {/* Pagination Controls */}
-//       <div className="pagination">
-//         <button
-//           onClick={() => handlePageChange(currentPage - 1)}
-//           disabled={currentPage === 1}
-//         >
-//           Previous
-//         </button>
-//         <span>
-//           Page {currentPage} of {totalPages}
-//         </span>
-//         <button
-//           onClick={() => handlePageChange(currentPage + 1)}
-//           disabled={currentPage === totalPages}
-//         >
-//           Next
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default RestaurantList;
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './RestaurantList.css';
+import { API_BASE_URL } from '../config';
 
 function RestaurantList() {
   const [restaurants, setRestaurants] = useState([]);
@@ -174,7 +9,7 @@ function RestaurantList() {
     minSpend: '',
     maxSpend: '',
     cuisines: '',
-    searchName: '', // Add searchName to filters
+    searchName: '',
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -182,12 +17,13 @@ function RestaurantList() {
 
   useEffect(() => {
     fetchRestaurants();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, filters]);
 
   const fetchRestaurants = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/restaurants', {
+      const response = await axios.get(`${API_BASE_URL}/restaurants`, {
         params: { ...filters, page: currentPage },
       });
 
@@ -225,14 +61,19 @@ function RestaurantList() {
     }
   };
 
-  return (
-    <div className="restaurant-list">
-      <h2>Restaurant List</h2>
+  const inputClass = "w-full rounded-md border-2 border-ocean-100 focus:border-treasure-500 focus:outline-none px-3 py-2 font-body text-ocean-800";
+  const labelClass = "block font-body font-semibold text-ocean-700 mb-1 text-sm";
 
-      <form onSubmit={handleFilterSubmit} className="filter-form">
-        <div>
-          <label>Search by Name:</label>
+  return (
+    <div className="max-w-3xl mx-auto">
+      <h2 className="font-display text-3xl text-ocean-800 mb-1">📜 The Treasure Ledger</h2>
+      <p className="font-body text-ocean-500 mb-6">Narrow the hunt by name, port of origin, coin, or cuisine.</p>
+
+      <form onSubmit={handleFilterSubmit} className="bg-white rounded-xl border-2 border-treasure-400 shadow-lg p-6 grid sm:grid-cols-2 gap-4 mb-8">
+        <div className="sm:col-span-2">
+          <label className={labelClass}>Search by Name</label>
           <input
+            className={inputClass}
             type="text"
             name="searchName"
             value={filters.searchName}
@@ -241,12 +82,8 @@ function RestaurantList() {
           />
         </div>
         <div>
-          <label>Country:</label>
-          <select
-            name="country"
-            value={filters.country}
-            onChange={handleFilterChange}
-          >
+          <label className={labelClass}>Country</label>
+          <select className={inputClass} name="country" value={filters.country} onChange={handleFilterChange}>
             <option value="">Any</option>
             <option value="India">India</option>
             <option value="Australia">Australia</option>
@@ -266,26 +103,9 @@ function RestaurantList() {
           </select>
         </div>
         <div>
-          <label>Min Spend:</label>
+          <label className={labelClass}>Cuisines</label>
           <input
-            type="number"
-            name="minSpend"
-            value={filters.minSpend}
-            onChange={handleFilterChange}
-          />
-        </div>
-        <div>
-          <label>Max Spend:</label>
-          <input
-            type="number"
-            name="maxSpend"
-            value={filters.maxSpend}
-            onChange={handleFilterChange}
-          />
-        </div>
-        <div>
-          <label>Cuisines:</label>
-          <input
+            className={inputClass}
             type="text"
             name="cuisines"
             value={filters.cuisines}
@@ -293,39 +113,56 @@ function RestaurantList() {
             placeholder="e.g. Italian, Chinese"
           />
         </div>
-        <button type="submit">Filter</button>
+        <div>
+          <label className={labelClass}>Min Spend (💰)</label>
+          <input className={inputClass} type="number" name="minSpend" value={filters.minSpend} onChange={handleFilterChange} />
+        </div>
+        <div>
+          <label className={labelClass}>Max Spend (💰)</label>
+          <input className={inputClass} type="number" name="maxSpend" value={filters.maxSpend} onChange={handleFilterChange} />
+        </div>
+        <button
+          type="submit"
+          className="sm:col-span-2 bg-treasure-500 hover:bg-treasure-600 text-ocean-900 font-display text-xl tracking-wide rounded-md py-2 shadow transition-colors"
+        >
+          🏴‍☠️ Set Sail
+        </button>
       </form>
 
-      {loading && <p>Loading...</p>}
+      {loading && <p className="font-body text-ocean-600 mb-4">Charting the waters...</p>}
 
-      <ul>
+      <ul className="space-y-3">
         {restaurants.length > 0 ? (
           restaurants.map((restaurant) => (
             <li key={restaurant.id}>
-              <a href={`/restaurants/${restaurant.id}`}>{restaurant.name}</a>
+              <a
+                href={`/restaurants/${restaurant.id}`}
+                className="block bg-white border-2 border-ocean-100 hover:border-treasure-400 rounded-lg px-5 py-4 shadow hover:shadow-lg hover:-translate-y-0.5 transition-all font-body font-semibold text-ocean-800"
+              >
+                {restaurant.name}
+              </a>
             </li>
           ))
         ) : (
-          <p>No restaurants found.</p>
+          !loading && <p className="font-body text-ocean-500 italic">No treasure found. Try adjusting your map.</p>
         )}
       </ul>
 
-      {/* Pagination Controls */}
-      <div className="pagination">
+      <div className="flex items-center justify-center gap-4 mt-8 font-body">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          className="px-4 py-2 rounded-md bg-ocean-700 text-treasure-200 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-ocean-600 transition-colors"
         >
-          Previous
+          ◀ Previous
         </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
+        <span className="text-ocean-700 font-semibold">Page {currentPage} of {totalPages}</span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
+          className="px-4 py-2 rounded-md bg-ocean-700 text-treasure-200 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-ocean-600 transition-colors"
         >
-          Next
+          Next ▶
         </button>
       </div>
     </div>
