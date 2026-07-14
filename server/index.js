@@ -137,7 +137,7 @@ app.get('/restaurants', async (req, res) => {
   // "$${countryCode}" (e.g. "$216"), which is not a valid bound parameter for
   // most countries and also desynced every placeholder index after it.
   if (countryCode) {
-    query += ` AND country_code = $${paramIndex++}`;
+    query += ` AND country = $${paramIndex++}`;
     values.push(countryCode);
   }
   if (minSpend) {
